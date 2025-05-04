@@ -7,9 +7,10 @@ If you're experiencing issues with the AI Code Reviewer for GitHub browser exten
 ### Check if the extension is properly installed
 
 1. Open your browser's extension management page:
-   - Chrome: `chrome://extensions`
-   - Edge: `edge://extensions`
-   - Firefox: `about:addons`
+
+    - Chrome: `chrome://extensions`
+    - Edge: `edge://extensions`
+    - Firefox: `about:addons`
 
 2. Make sure the AI Code Reviewer extension is enabled.
 
@@ -38,10 +39,11 @@ If you're experiencing issues with the AI Code Reviewer for GitHub browser exten
 ### Check if the backend server is running
 
 1. Make sure the backend server is running:
-   ```
-   cd backend
-   npm start
-   ```
+
+    ```
+    cd backend
+    npm start
+    ```
 
 2. Check if the server is accessible by opening `http://localhost:3000/health` in your browser.
 
@@ -61,7 +63,15 @@ If you're experiencing issues with the AI Code Reviewer for GitHub browser exten
 
 1. Make sure you have a valid Gemini API key in the `backend/.env` file.
 
-2. Check the backend server logs for any API-related errors.
+    - You must get a valid API key from [Google AI Studio](https://ai.google.dev/)
+    - See [GEMINI_API_SETUP.md](GEMINI_API_SETUP.md) for detailed instructions
+
+2. Test if your API key is working by visiting `http://localhost:3000/test-gemini` in your browser.
+
+    - If you see a success message, your API key is valid
+    - If you see an error message, your API key is invalid or has other issues
+
+3. Check the backend server logs for any API-related errors.
 
 ### Check if the diff parsing is working
 
@@ -89,9 +99,9 @@ You can enable debug mode to get more detailed logs:
 
 This error occurs when the extension can't find any file elements on the page. This might happen if:
 
-- The GitHub UI has changed
-- The PR doesn't have any file changes
-- The page is still loading
+-   The GitHub UI has changed
+-   The PR doesn't have any file changes
+-   The page is still loading
 
 Try reloading the page or opening a different PR.
 
@@ -99,17 +109,17 @@ Try reloading the page or opening a different PR.
 
 This error occurs when the extension can't connect to the backend server. Make sure:
 
-- The backend server is running
-- The server is accessible at `http://localhost:3000`
-- There are no network issues
+-   The backend server is running
+-   The server is accessible at `http://localhost:3000`
+-   There are no network issues
 
 ### "Invalid review results"
 
 This error occurs when the backend returns invalid results. Check:
 
-- The Gemini API key is valid
-- The backend server logs for any errors
-- The diff data being sent to the backend
+-   The Gemini API key is valid
+-   The backend server logs for any errors
+-   The diff data being sent to the backend
 
 ## Still Having Issues?
 

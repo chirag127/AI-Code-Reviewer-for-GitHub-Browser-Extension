@@ -4,21 +4,20 @@
  * This module handles interaction with the Gemini AI API
  */
 
-const { GoogleGenerativeAI } = require('@google/generative-ai');
-
+const { GoogleGenAI } = require("@google/genai");
 // Initialize Gemini API
 const API_KEY = process.env.GEMINI_API_KEY;
 let genAI;
 
 try {
-  genAI = new GoogleGenerativeAI(API_KEY);
+    genAI = new GoogleGenAI(API_KEY);
 } catch (error) {
-  console.error('Error initializing Gemini API:', error);
+    console.error("Error initializing Gemini API:", error);
 }
 
 // Review mode prompts
 const REVIEW_PROMPTS = {
-  full: `
+    full: `
     You are an expert code reviewer analyzing GitHub PR code changes.
     Provide specific, actionable feedback on:
     1. Code quality issues
@@ -35,7 +34,7 @@ const REVIEW_PROMPTS = {
 
     Keep suggestions concise and focused on the most important issues.
   `,
-  security: `
+    security: `
     You are a security-focused code reviewer analyzing GitHub PR code changes.
     Focus exclusively on identifying security vulnerabilities such as:
     1. Injection flaws (SQL, NoSQL, command injection, etc.)
@@ -53,7 +52,7 @@ const REVIEW_PROMPTS = {
 
     Only report security concerns, ignore other code quality issues.
   `,
-  optimization: `
+    optimization: `
     You are a performance optimization expert analyzing GitHub PR code changes.
     Focus exclusively on identifying performance issues such as:
     1. Inefficient algorithms or data structures
@@ -70,7 +69,7 @@ const REVIEW_PROMPTS = {
     - Priority level (low, medium, high)
 
     Only report performance concerns, ignore other code quality or security issues.
-  `
+  `,
 };
 
 /**
@@ -80,63 +79,106 @@ const REVIEW_PROMPTS = {
  * @param {string} reviewMode - Review mode (full, security, optimization)
  * @returns {Array} - Array of review suggestions
  */
-async function getReviewSuggestions(diffData, reviewMode = 'full') {
-  if (!genAI) {
-    throw new Error('Gemini API not initialized. Check your API key.');
-  }
-
-  try {
-    // Select the appropriate model
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-preview-04-17' });
-
-    // Get the prompt for the selected review mode
-    const prompt = REVIEW_PROMPTS[reviewMode] || REVIEW_PROMPTS.full;
-
-    // Prepare the context with diff data
-    const context = prepareContext(diffData, reviewMode);
-
-    // Generate review suggestions
-    const result = await model.generateContent(`
-      ${prompt}
-
-      Here is the code to review:
-      ${context}
-
-      Provide your review suggestions in the following JSON format:
-      [
-        {
-          "filePath": "path/to/file.js",
-          "lineNumber": 42,
-          "message": "Your suggestion here",
-          "severity": "info|warning|error|security"
-        }
-      ]
-
-      Only respond with valid JSON. Do not include any other text.
-    `);
-
-    const response = result.response;
-    const text = response.text();
-
-    // Parse the JSON response
-    try {
-      // Extract JSON from the response (in case there's any extra text)
-      const jsonMatch = text.match(/\[[\s\S]*\]/);
-      if (!jsonMatch) {
-        throw new Error('No valid JSON found in response');
-      }
-
-      const suggestions = JSON.parse(jsonMatch[0]);
-      return suggestions;
-    } catch (parseError) {
-      console.error('Error parsing Gemini response:', parseError);
-      console.log('Raw response:', text);
-      throw new Error('Failed to parse AI response');
+async function getReviewSuggestions(diffData, reviewMode = "full") {
+    if (!genAI) {
+        throw new Error("Gemini API not initialized. Check your API key.");
     }
-  } catch (error) {
-    console.error('Error getting review suggestions from Gemini:', error);
-    throw error;
+
+    try {
+        // Select the appropriate model
+        const config = {
+            thinkingConfig: {
+                thinkingBudget: 0,
+            },
+            responseMimeType: "text/plain",
+        };
+
+        // Use the model specified in the PRD
+        const model = "gemini-1.5-flash-latest";
+
+        // Get the prompt for the selected review mode
+        const prompt = REVIEW_PROMPTS[reviewMode] || REVIEW_PROMPTS.full;
+
+        // Prepare the context with diff data
+        const context = prepareContext(diffData, reviewMode);
+
+        // Generate review suggestions
+        let promptText = `
+${prompt}
+
+Here is the code to review:
+${context}
+
+Provide your review suggestions in the following JSON format:
+[
+  {
+    "filePath": "path/to/file.js",
+    "lineNumber": 42,
+    "message": "Your suggestion here",
+    "severity": "info|warning|error|security"
   }
+]
+
+Only respond with valid JSON. Do not include any other text.
+    `;
+
+        const contents = [
+            {
+                role: "user",
+                parts: [{ text: promptText }],
+            },
+        ];
+
+        // Adjust based on whether streaming or single response is needed per feature
+        const response = await genAI.models.generateContent({
+            model,
+            contents,
+            config,
+        });
+
+        // Get the response text
+        const text = response.text;
+        console.log("Raw response from Gemini API:", text);
+
+        // Parse the JSON response
+        try {
+            // Extract JSON from the response (in case there's any extra text)
+            const jsonMatch = text.match(/\[[\s\S]*\]/);
+            if (!jsonMatch) {
+                throw new Error("No valid JSON found in response");
+            }
+
+            const suggestions = JSON.parse(jsonMatch[0]);
+            return suggestions;
+        } catch (parseError) {
+            console.error("Error parsing Gemini response:", parseError);
+            console.log("Raw response:", text);
+            throw new Error("Failed to parse AI response");
+        }
+    } catch (error) {
+        console.error("Error getting review suggestions from Gemini:", error);
+
+        // Provide more detailed error messages
+        if (error.message.includes("API key")) {
+            throw new Error(
+                "Invalid or missing Gemini API key. Please check your .env file."
+            );
+        } else if (error.message.includes("model")) {
+            throw new Error(
+                "Invalid model name. Please check the model name in the code."
+            );
+        } else if (error.message.includes("quota")) {
+            throw new Error(
+                "API quota exceeded. Please check your Gemini API quota."
+            );
+        } else if (error.message.includes("network")) {
+            throw new Error(
+                "Network error. Please check your internet connection."
+            );
+        } else {
+            throw new Error(`Gemini API error: ${error.message}`);
+        }
+    }
 }
 
 /**
@@ -147,29 +189,33 @@ async function getReviewSuggestions(diffData, reviewMode = 'full') {
  * @returns {string} - Formatted context
  */
 function prepareContext(diffData, reviewMode) {
-  let context = '';
+    let context = "";
 
-  diffData.forEach(file => {
-    context += `File: ${file.filePath}\n\n`;
+    diffData.forEach((file) => {
+        context += `File: ${file.filePath}\n\n`;
 
-    file.chunks.forEach(chunk => {
-      context += `@@ ${chunk.header} @@\n`;
+        file.chunks.forEach((chunk) => {
+            context += `@@ ${chunk.header} @@\n`;
 
-      chunk.changes.forEach(change => {
-        const prefix = change.type === 'add' ? '+' :
-                      change.type === 'remove' ? '-' : ' ';
-        context += `${prefix} ${change.content} (Line ${change.lineNumber})\n`;
-      });
+            chunk.changes.forEach((change) => {
+                const prefix =
+                    change.type === "add"
+                        ? "+"
+                        : change.type === "remove"
+                        ? "-"
+                        : " ";
+                context += `${prefix} ${change.content} (Line ${change.lineNumber})\n`;
+            });
 
-      context += '\n';
+            context += "\n";
+        });
+
+        context += "\n---\n\n";
     });
 
-    context += '\n---\n\n';
-  });
-
-  return context;
+    return context;
 }
 
 module.exports = {
-  getReviewSuggestions
+    getReviewSuggestions,
 };

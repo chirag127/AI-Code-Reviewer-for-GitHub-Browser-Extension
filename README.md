@@ -57,8 +57,11 @@ project-root/
 
 1. Navigate to the `backend` folder
 2. Create a `.env` file with your Gemini API key (see `.env.example`)
+    - **Important**: You must get a valid Gemini API key from [Google AI Studio](https://ai.google.dev/)
+    - See [GEMINI_API_SETUP.md](GEMINI_API_SETUP.md) for detailed instructions
 3. Install dependencies: `npm install`
 4. Start the server: `npm start`
+5. Verify the API key is working by visiting `http://localhost:3000/test-gemini` in your browser
 
 For more detailed installation instructions, see [INSTALLATION.md](INSTALLATION.md).
 
