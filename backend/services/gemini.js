@@ -1,6 +1,6 @@
 /**
  * AI Code Reviewer for GitHub - Gemini AI Service
- * 
+ *
  * This module handles interaction with the Gemini AI API
  */
 
@@ -75,7 +75,7 @@ const REVIEW_PROMPTS = {
 
 /**
  * Get review suggestions from Gemini AI
- * 
+ *
  * @param {Object} diffData - Parsed diff data
  * @param {string} reviewMode - Review mode (full, security, optimization)
  * @returns {Array} - Array of review suggestions
@@ -84,24 +84,24 @@ async function getReviewSuggestions(diffData, reviewMode = 'full') {
   if (!genAI) {
     throw new Error('Gemini API not initialized. Check your API key.');
   }
-  
+
   try {
     // Select the appropriate model
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash-latest' });
-    
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-preview-04-17' });
+
     // Get the prompt for the selected review mode
     const prompt = REVIEW_PROMPTS[reviewMode] || REVIEW_PROMPTS.full;
-    
+
     // Prepare the context with diff data
     const context = prepareContext(diffData, reviewMode);
-    
+
     // Generate review suggestions
     const result = await model.generateContent(`
       ${prompt}
-      
+
       Here is the code to review:
       ${context}
-      
+
       Provide your review suggestions in the following JSON format:
       [
         {
@@ -111,13 +111,13 @@ async function getReviewSuggestions(diffData, reviewMode = 'full') {
           "severity": "info|warning|error|security"
         }
       ]
-      
+
       Only respond with valid JSON. Do not include any other text.
     `);
-    
+
     const response = result.response;
     const text = response.text();
-    
+
     // Parse the JSON response
     try {
       // Extract JSON from the response (in case there's any extra text)
@@ -125,7 +125,7 @@ async function getReviewSuggestions(diffData, reviewMode = 'full') {
       if (!jsonMatch) {
         throw new Error('No valid JSON found in response');
       }
-      
+
       const suggestions = JSON.parse(jsonMatch[0]);
       return suggestions;
     } catch (parseError) {
@@ -141,32 +141,32 @@ async function getReviewSuggestions(diffData, reviewMode = 'full') {
 
 /**
  * Prepare context for the AI with diff data
- * 
+ *
  * @param {Object} diffData - Parsed diff data
  * @param {string} reviewMode - Review mode
  * @returns {string} - Formatted context
  */
 function prepareContext(diffData, reviewMode) {
   let context = '';
-  
+
   diffData.forEach(file => {
     context += `File: ${file.filePath}\n\n`;
-    
+
     file.chunks.forEach(chunk => {
       context += `@@ ${chunk.header} @@\n`;
-      
+
       chunk.changes.forEach(change => {
-        const prefix = change.type === 'add' ? '+' : 
+        const prefix = change.type === 'add' ? '+' :
                       change.type === 'remove' ? '-' : ' ';
         context += `${prefix} ${change.content} (Line ${change.lineNumber})\n`;
       });
-      
+
       context += '\n';
     });
-    
+
     context += '\n---\n\n';
   });
-  
+
   return context;
 }
 

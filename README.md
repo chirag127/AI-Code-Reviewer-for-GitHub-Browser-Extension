@@ -26,14 +26,32 @@ project-root/
 │   └── utils/           # Helper utilities
 ```
 
+## Quick Start
+
+### Windows
+
+1. Clone this repository
+2. Run `setup.bat` to install dependencies
+3. Edit `backend/.env` to add your Gemini API key
+4. Run `start-backend.bat` to start the backend server
+5. Load the extension in your browser (see Installation section below)
+6. Run `test-extension.bat` to verify the installation
+
+### Linux/Mac
+
+1. Clone this repository
+2. Run `./setup.sh` to install dependencies
+3. Edit `backend/.env` to add your Gemini API key
+4. Start the backend server: `cd backend && npm start`
+5. Load the extension in your browser (see Installation section below)
+
 ## Installation
 
 ### Extension
 
-1. Clone this repository
-2. Open Chrome/Edge/Firefox and navigate to the extensions page
-3. Enable developer mode
-4. Click "Load unpacked" and select the `extension` folder
+1. Open Chrome/Edge/Firefox and navigate to the extensions page
+2. Enable developer mode
+3. Click "Load unpacked" and select the `extension` folder
 
 ### Backend
 
@@ -41,6 +59,8 @@ project-root/
 2. Create a `.env` file with your Gemini API key (see `.env.example`)
 3. Install dependencies: `npm install`
 4. Start the server: `npm start`
+
+For more detailed installation instructions, see [INSTALLATION.md](INSTALLATION.md).
 
 ## Usage
 
@@ -59,6 +79,15 @@ The extension is built using vanilla JavaScript and follows the Manifest V3 spec
 ### Backend
 
 The backend is built with Express.js and uses the Gemini 2.0 Flash Lite API for code analysis.
+
+### Helper Scripts
+
+The repository includes several helper scripts to make development easier:
+
+-   `setup.bat` / `setup.sh`: Install dependencies and set up the project
+-   `start-backend.bat`: Start the backend server (Windows)
+-   `test-extension.bat`: Open the test page to verify the extension (Windows)
+-   `package-extension.bat`: Package the extension for distribution (Windows)
 
 ## License
 
