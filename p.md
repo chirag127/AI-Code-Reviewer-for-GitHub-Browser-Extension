@@ -1,6 +1,3 @@
-Here's a complete **Product Requirements Document (PRD)** for the **"AI Code Reviewer for GitHub"** browser extension:
-
----
 
 # 📄 Product Requirements Document (PRD)
 ## Product Name: **AI Code Reviewer for GitHub**
