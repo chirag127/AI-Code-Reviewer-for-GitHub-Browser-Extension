@@ -1,0 +1,33 @@
+build_status:
+  - provider: github_actions
+    workflow_name: CI
+    image: github_actions.svg
+    commit: main
+    url: "https://github.com/chirag127/CodeGuard-AI-Powered-GitHub-Code-Reviewer-Browser-Extension/actions/workflows/ci.yml"
+
+code_coverage:
+  - provider: codecov
+    image: codecov.svg
+    branch: main
+    url: "https://codecov.io/gh/chirag127/CodeGuard-AI-Powered-GitHub-Code-Reviewer-Browser-Extension"
+
+tech_stack:
+  - name: JavaScript
+    image: javascript.svg
+    url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript"
+  - name: GitHub Actions
+    image: githubactions.svg
+    url: "https://github.com/features/actions"
+
+lint_format:
+  - name: Biome
+    image: biome.svg
+    url: "https://biomejs.dev/"
+
+license:
+  - image: license-cc-by-nc-4.0
+    url: "https://creativecommons.org/licenses/by-nc/4.0/"
+
+stars:
+  - image: github_stars
+    url: "https://github.com/chirag127/CodeGuard-AI-Powered-GitHub-Code-Reviewer-Browser-Extension"
