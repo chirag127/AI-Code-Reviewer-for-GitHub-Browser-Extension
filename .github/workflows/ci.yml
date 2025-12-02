@@ -1,0 +1,132 @@
+name: CodeGuard CI/CD Pipeline
+
+# Enforce Apex Standards: Zero-Defect, High-Velocity Build
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint_and_test:
+    name: Static Analysis & Unit Tests
+    # Browser Extensions typically run on Node environments
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Environment (20.x or latest stable)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies (Using npm/pnpm/yarn based on package.json)
+        run: npm ci
+
+      - name: Run Linter (Biome or ESLint equivalent for JS)
+        # Assuming standard JS/TS tooling setup, using a common linter command
+        run: npm run lint
+
+      - name: Run Type Check (TypeScript)
+        # Necessary for robust browser extensions, even if this repo is JS, good practice.
+        run: npm run build -- --no-emit # Or equivalent command to check types
+
+      - name: Run Unit Tests (Vitest/Jest equivalent)
+        run: npm test -- --coverage
+
+      - name: Upload Coverage Reports
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/lcov.info
+          name: CodeGuard-Browser-Extension-Coverage
+          flags: unit
+
+  e2e_simulation:
+    name: End-to-End Simulation (Playwright/Cypress)
+    runs-on: ubuntu-latest
+    needs: lint_and_test
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run End-to-End Tests (Simulating GitHub Context)
+        # Assuming 'npm run e2e' runs Playwright/Cypress against a mocked or staged GH environment
+        run: npm run e2e
+
+  release_build:
+    name: Build Release Artifacts
+    runs-on: ubuntu-latest
+    needs: [lint_and_test, e2e_simulation]
+    if: github.ref == 'refs/heads/main'
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Extension for Production
+        # This command creates the distributable zip/crx file for the extension store
+        run: npm run build:release
+
+      - name: Get Version from package.json
+        id: get_version
+        run: echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Archive Production Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: codeguard-release-${{ steps.get_version.outputs.version }}
+          path: dist/ # Assuming 'dist' is the output directory for the built extension
+          retention-days: 5
+
+  deploy_to_store:
+    name: Publish to Chrome Web Store (Manual/Approval Gate)
+    runs-on: ubuntu-latest
+    needs: release_build
+    if: github.ref == 'refs/heads/main' && success()
+    environment: production
+    permissions:
+      id-token: write # Required for OIDC auth if using store API publishing
+    steps:
+      - name: Waiting for Manual Approval for Store Publish
+        if: github.event_name == 'push'
+        uses: trstringer/manual-approval@v1
+        with:
+          secret: ${{ github.token }}
+          minimum_approvals: 1
+          approvers: chirag127, team-maintainers
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: codeguard-release-${{ needs.release_build.outputs.version }}
+
+      # Placeholder for actual Chrome Web Store deployment action using refresh tokens
+      - name: Upload to Chrome Web Store (Requires Manual Token Setup)
+        run: echo "Artifact ready for manual upload or automated deployment using stored credentials."
+        if: success()
