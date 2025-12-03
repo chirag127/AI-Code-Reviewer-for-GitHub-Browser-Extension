@@ -1,70 +1,101 @@
-# 🤝 Contributing to CodeGuard-AI-Powered-GitHub-Code-Reviewer-Browser-Extension
+# Contributing to CodeGuardian-AI-GitHub-Code-Review-Browser-Extension
 
-As an Apex Technical Authority project, we uphold the highest standards of quality, maintainability, and future-proofing. Contributions are critical to enhancing this elite tool.
+Thank you for considering contributing to `CodeGuardian-AI-GitHub-Code-Review-Browser-Extension`! We strive to maintain a high standard of code quality, clarity, and professionalism, aligned with FAANG-level expectations and the principles of "Zero-Defect, High-Velocity, Future-Proof" development.
 
-## 1. Code of Conduct
+This project adheres to the **Apex Technical Authority** standards, focusing on robust architecture, clear documentation, and efficient development workflows. We welcome contributions that enhance its functionality, improve its reliability, or refine its user experience.
 
-This project adheres to the Contributor Covenant Code of Conduct. By participating, you are expected to uphold these standards. Be respectful, constructive, and professional.
+## 1. Our Guiding Principles
 
-## 2. The Apex Contribution Workflow
+*   **Code Quality:** Strive for clean, well-documented, and maintainable code. Follow the **SOLID**, **DRY**, and **YAGNI** principles.
+*   **Professionalism:** Maintain a respectful and constructive tone in all communications.
+*   **Velocity:** Aim for efficient development cycles through clear processes and automation.
+*   **Future-Proofing:** Consider scalability, extensibility, and long-term maintainability.
+*   **Security:** Prioritize security in all aspects of development. Ensure that contributions do not introduce vulnerabilities.
 
-We enforce a strict contribution workflow modeled on **Zero-Defect, High-Velocity, Future-Proof** principles. All contributions must pass automated gating checks before manual review.
+## 2. How to Contribute
 
-### A. Pre-Requisites (The Environment)
+### 2.1. Development Environment Setup
 
-Ensure your environment aligns with the repository's defined stack (JavaScript/TypeScript, Vite, Browser Extension Standards).
+To contribute, you'll need to set up a development environment that mirrors the project's stack. This project is a JavaScript/Node.js based browser extension.
 
-1.  **Clone Repository:**
+1.  **Clone the Repository:**
     bash
-    git clone https://github.com/chirag127/CodeGuard-AI-Powered-GitHub-Code-Reviewer-Browser-Extension.git
-    cd CodeGuard-AI-Powered-GitHub-Code-Reviewer-Browser-Extension
+    git clone https://github.com/chirag127/CodeGuardian-AI-GitHub-Code-Review-Browser-Extension.git
+    cd CodeGuardian-AI-GitHub-Code-Review-Browser-Extension
     
-2.  **Install Dependencies (Using Apex Standard Tooling):**
-    We utilize **npm** for dependency management in this JS/TS project.
+
+2.  **Install Dependencies:**
+    This project uses `npm` for package management. Ensure you have Node.js and npm installed.
     bash
     npm install
     
-3.  **Environment Alignment (If applicable):**
-    If integrating with external AI services (e.g., Gemini, OpenAI), ensure your `.env` file is correctly configured according to the project's local setup guide (see `README.md`).
 
-### B. Development & Verification
-
-All development must occur on a feature branch. Before submitting a Pull Request (PR), you **MUST** ensure all local checks pass.
-
-1.  **Run Local Verification Suite:** This runs formatting checks (Biome), linting, unit tests (Vitest), and integration tests (Playwright).
-    bash
-    # Run fast checks (Linting/Formatting)
-    npm run check
-
-    # Run full test suite
-    npm run test
+3.  **Environment Variables:**
+    This project may rely on environment variables, especially for API keys (e.g., Gemini API). Create a `.env` file in the root directory:
     
-2.  **Review Your Changes:** Manually verify that your code adheres to the **SOLID**, **DRY**, and **YAGNI** principles outlined in the Architectural documentation.
+    # Example .env file
+    GEMINI_API_KEY=your_gemini_api_key_here
+    # Add other necessary variables as per .env.example if provided
+    
+    *Note: Never commit `.env` files to the repository.*
 
-### C. Submitting a Pull Request
+### 2.2. Running the Extension Locally
 
-1.  **Push Feature Branch:** Push your verified branch to your fork.
-2.  **Create PR:** Open a Pull Request targeting `main` in the upstream repository (`chirag127/CodeGuard-AI-Powered-GitHub-Code-Reviewer-Browser-Extension`).
-3.  **Template Usage:** **You MUST** use the provided **Pull Request Template** (`.github/PULL_REQUEST_TEMPLATE.md`). Ensure the PR description clearly articulates:
-    *   The problem solved (linking to an issue if necessary).
-    *   The architectural pattern used (e.g., Adapter for GitHub API interaction).
-    *   Verification steps taken.
+Refer to the `README.md` for specific instructions on how to build and run the extension in development mode for your browser (Chrome/Firefox).
 
-## 3. Architectural Adherence (The Apex Mandates)
+### 2.3. Workflow for Contributions
 
-Contributions that deviate from the core architectural patterns will be flagged for rework.
+1.  **Fork the Repository:** Create your own fork of the `chirag127/CodeGuardian-AI-GitHub-Code-Review-Browser-Extension` repository.
+2.  **Create a New Branch:** Fork the main repository and create a feature branch for your contribution.
+    bash
+    git checkout -b feature/your-feature-name
+    
+3.  **Make Your Changes:** Implement your feature or fix.
+4.  **Test Your Changes:** Ensure your changes pass all existing tests and add new tests if necessary. Refer to testing instructions in the `README.md`.
+5.  **Lint and Format:** Ensure your code adheres to the project's linting and formatting standards. Typically, this can be done with:
+    bash
+    npm run lint
+    npm run format
+    
+6.  **Commit Your Changes:** Write clear and concise commit messages. Follow conventional commits if applicable.
+    bash
+    git commit -m "feat: Add new code analysis feature"
+    
+7.  **Push to Your Fork:** Push your branch to your forked repository.
+    bash
+    git push origin feature/your-feature-name
+    
+8.  **Open a Pull Request:** Create a Pull Request from your feature branch to the `main` branch of the `chirag127/CodeGuardian-AI-GitHub-Code-Review-Browser-Extension` repository.
 
-*   **TypeScript Strictness:** All new code must adhere to strict TypeScript configuration (`tsconfig.json`). No `any` types allowed unless explicitly documented and approved by a core maintainer.
-*   **Feature-Sliced Design (FSD):** Ensure new components/features are correctly layered (e.g., `features/`, `entities/`, `shared/`).
-*   **AI Interaction Layer:** All calls to external AI models must route through the dedicated **Adapter** layer to facilitate future technology swaps (Ports & Adapters pattern).
+### 2.4. Pull Request Guidelines
 
-## 4. Reporting Issues
+*   **Clear Description:** Provide a detailed description of your changes, including the problem they solve and how they were tested.
+*   **Link to Issues:** If your PR addresses an existing issue, reference it using keywords like `Fixes #123` or `Closes #123`.
+*   **Code Review:** Be prepared to engage in the code review process and address feedback promptly.
+*   **CI Checks:** Ensure all Continuous Integration checks pass before your PR can be merged.
 
-If you encounter a bug or wish to suggest a feature, please use the **Issue Template** (`.github/ISSUE_TEMPLATE/bug_report.md`). Be precise and provide actionable steps for replication.
+## 3. Code of Conduct
 
-## 5. Security Disclosure
+This project is governed by a Code of Conduct, which can be found at [`.github/CODE_OF_CONDUCT.md`](.github/CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to `[email protected]`.
 
-We take security seriously. If you discover a vulnerability, please follow the guidelines in **SECURITY.md** instead of opening a public issue.
+## 4. Issues and Feature Requests
 
---- 
-*Thank you for your dedication to engineering excellence. Your contribution helps advance the state-of-the-art in developer tooling.*
+*   **Reporting Bugs:** Please use the provided issue template for bug reports to ensure we have all the necessary information.
+*   **Suggesting Features:** Feel free to open an issue to discuss potential new features or improvements.
+
+## 5. Technical Standards & Agent Directives
+
+This project adheres to the **Apex Technical Authority** directives. All contributions should align with the specified tech stack and architectural patterns. For detailed technical specifications and agent interaction protocols, please refer to the **AI Agent Directives** section within the `README.md` or the standalone `AGENTS.md` file.
+
+Specifically, refer to:
+*   **Tech Stack:** JavaScript, Node.js, Browser Extension APIs, Gemini API.
+*   **Architecture:** Focus on modularity, clear separation of concerns, and efficient browser extension architecture.
+*   **Verification:** Automated tests (e.g., Jest, Vitest) and manual testing are crucial.
+
+## 6. Community & Support
+
+We aim to foster a collaborative and supportive community. If you have questions or need assistance, please engage through GitHub Issues or Discussions.
+
+Thank you for your contribution!
+
+*Last updated: December 2025*
