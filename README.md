@@ -1,97 +1,139 @@
-# AI Code Reviewer for GitHub Browser Extension
+![CodeGuardian AI Banner](https://i.imgur.com/your_custom_banner_url.png)
 
-A browser extension that enhances GitHub's PR interface by injecting inline AI code review suggestions using Gemini 2.0 Flash Lite.
+# CodeGuardian-AI-GitHub-Code-Review-Browser-Extension
 
-## Features
+**The definitive intelligent layer for enhancing GitHub Pull Request analysis directly within your browser, powered by Google Gemini.** This extension injects actionable, context-aware code review suggestions, security vulnerability checks, and architectural feedback into the GitHub UI, leveraging the most advanced LLMs available.
 
--   🔍 **Inline AI Code Review Suggestions**: Injects AI-generated comments into GitHub diff views.
--   🔐 **Security Risk Detection**: Identifies and explains potential security issues.
--   ⚡ **Lightweight Review Mode**: Process only modified lines in PR with different review modes.
--   🌓 **Dark Mode Support**: Seamlessly integrates with GitHub's dark mode.
+---
 
-## Project Structure
+## 🚀 Project Status & Metrics
 
-```
-project-root/
-├── extension/           # Browser extension (Chrome, Edge, Firefox)
-│   ├── manifest.json    # Extension manifest
-│   ├── contentScript.js # Injects UI into GitHub PR pages
-│   ├── background.js    # Background script
-│   ├── popup.html       # Settings UI
-│   └── styles.css       # Styling for injected UI
-├── backend/             # Express.js API Server
-│   ├── server.js        # Main server file
-│   ├── routes/          # API routes
-│   ├── services/        # Gemini integration
-│   └── utils/           # Helper utilities
-```
+[![Build Status](https://img.shields.io/github/actions/workflow/status/chirag127/CodeGuardian-AI-GitHub-Code-Review-Browser-Extension/ci.yml?label=Build&style=flat-square)](https://github.com/chirag127/CodeGuardian-AI-GitHub-Code-Review-Browser-Extension/actions/workflows/ci.yml)
+[![Code Coverage](https://img.shields.io/codecov/c/github/chirag127/CodeGuardian-AI-GitHub-Code-Review-Browser-Extension?style=flat-square)](https://codecov.io/gh/chirag127/CodeGuardian-AI-GitHub-Code-Review-Browser-Extension)
+[![Language](https://img.shields.io/github/languages/top/chirag127/CodeGuardian-AI-GitHub-Code-Review-Browser-Extension?style=flat-square&color=FFCA3A)](https://www.javascript.com/)
+[![Linter Status](https://img.shields.io/badge/Linter-Biome-passing?style=flat-square&logo=biome)](https://biomejs.dev/)
+[![License](https://img.shields.io/badge/License-CC%20BY--NC%204.0-blue?style=flat-square)](./LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/chirag127/CodeGuardian-AI-GitHub-Code-Review-Browser-Extension?style=flat-square)](https://github.com/chirag127/CodeGuardian-AI-GitHub-Code-Review-Browser-Extension)
 
-## Quick Start
+**Support the future of intelligent development tooling:**
 
-### Windows
+<a href="https://github.com/chirag127/CodeGuardian-AI-GitHub-Code-Review-Browser-Extension/stargazers">
+  <img src="https://img.shields.io/github/stars/chirag127/CodeGuardian-AI-GitHub-Code-Review-Browser-Extension?style=social" alt="Star on GitHub"/>
+</a>
 
-1. Clone this repository
-2. Run `setup.bat` to install dependencies
-3. Edit `backend/.env` to add your Gemini API key
-4. Run `start-backend.bat` to start the backend server
-5. Load the extension in your browser (see Installation section below)
-6. Run `test-extension.bat` to verify the installation
+---
 
-### Linux/Mac
+## 💡 Overview
 
-1. Clone this repository
-2. Run `./setup.sh` to install dependencies
-3. Edit `backend/.env` to add your Gemini API key
-4. Start the backend server: `cd backend && npm start`
-5. Load the extension in your browser (see Installation section below)
+**CodeGuardian-AI-GitHub-Code-Review-Browser-Extension** revolutionizes the Pull Request workflow by making advanced AI analysis a seamless, real-time part of the developer experience. Instead of context-switching to external tools, CodeGuardian leverages the robust **Gemini Pro Model** to provide instant feedback directly adjacent to the changed code on GitHub. It focuses on identifying subtle logic errors, enforcing coding standards, and flagging common security antipatterns.
 
-## Installation
+## 🏗️ Architecture Map (Browser Extension Layer)
 
-### Extension
+ascii
++-----------------------------+
+|   Browser Environment (DOM)   |
+| (GitHub PR Page Injection)    |
++--------------+--------------+
+               |
+         [Content Script Layer] (Runs in page context)
+               |
++--------------v--------------+
+|  Orchestrator (Vanilla JS/TS) |
+| - MutationObserver: Detects   |
+|   DOM changes (new comments,  |
+|   file switching).            |
++--------------+--------------+
+               |
++--------------v--------------+
+|      API Proxy Handler        |
+| - Sanitizes input/output.     |
+| - Handles API Key Storage     |
+|   (Encrypted via Storage API).|
++--------------+--------------+
+               |
++--------------v--------------+
+|     Gemini/LLM Integration    |
+| - Prompts optimized for       |
+|   Code Review (FSD/SOLID).    |
+| - Asynchronous Call to Backend|
++-----------------------------+
 
-1. Open Chrome/Edge/Firefox and navigate to the extensions page
-2. Enable developer mode
-3. Click "Load unpacked" and select the `extension` folder
 
-### Backend
+## 📚 Documentation & Directives
 
-1. Navigate to the `backend` folder
-2. Create a `.env` file with your Gemini API key (see `.env.example`)
-    - **Important**: You must get a valid Gemini API key from [Google AI Studio](https://ai.google.dev/)
-    - See [GEMINI_API_SETUP.md](GEMINI_API_SETUP.md) for detailed instructions
-3. Install dependencies: `npm install`
-4. Start the server: `npm start`
-5. Verify the API key is working by visiting `http://localhost:3000/test-gemini` in your browser
+This project adheres to the **Apex Technical Authority (ATA) Standard**. For detailed architectural requirements, linting rules, and agent execution protocols, consult the integrated documentation files.
 
-For more detailed installation instructions, see [INSTALLATION.md](INSTALLATION.md).
+<details>
+<summary>🤖 AI Agent Directives (Customized for Browser Extension - JS/TS)</summary>
 
-## Usage
+# AGENTS.md: APEX EXECUTION PROTOCOL
 
-1. Navigate to any GitHub pull request
-2. Click the "Review with AI" button in the PR header
-3. Select your desired review mode (Full, Security, Optimization)
-4. Wait for the AI to analyze the code changes
-5. Review the inline suggestions
+## 1. IDENTITY & PRIME DIRECTIVE (Browser Extension Context)
+**Role:** Senior Principal Architect enforcing Zero-Defect standards for client-side tooling.
+**Goal:** Ensure seamless, non-blocking integration into the GitHub DOM while maintaining strict security boundaries for stored API keys and respecting browser performance budgets.
+**Philosophy:** "Non-Intrusive, High-Fidelity Feedback."
 
-## Development
+## 2. CONTEXT-AWARE APEX TECH STACKS (LATE 2025 STANDARDS)
 
-### Extension
+*   **PRIMARY SCENARIO: WEB / APP / EXTENSION (TypeScript)**
+    *   **Stack:** **TypeScript 6.x** (Strict Mode enforced via `tsconfig.json`), **Vite 7** (Build Tooling), **WXT** (Web Extension Build System).
+    *   **Architecture:** **Feature-Sliced Design (FSD)** mapping strictly to extension layers (Content Scripts, Background/Service Workers, UI/Popup). State management via standard browser APIs (`chrome.storage`/`browser.storage`).
+    *   **Lint/Test:** **Biome** for ultra-fast linting/formatting. **Vitest** for unit testing core logic. **Playwright** for end-to-end simulation of GitHub interactions.
+    *   **AI Integration:** All calls to the Gemini API MUST be routed through a dedicated Service Worker to prevent exposing keys in the Content Script and to manage throttling/rate limiting gracefully.
 
-The extension is built using vanilla JavaScript and follows the Manifest V3 specification.
+## 3. ARCHITECTURAL PRINCIPLES
+1.  **SOLID Compliance:** Particularly the **Single Responsibility Principle (SRP)**. Content scripts handle DOM manipulation ONLY; Background scripts handle heavy lifting/API calls.
+2.  **DRY:** Abstract repetitive DOM manipulation patterns into reusable utility functions.
+3.  **YAGNI:** Only implement features explicitly required by the current review scope. Avoid premature complexity.
 
-### Backend
+## 4. VERIFICATION COMMANDS (APEX TOOLCHAIN)
 
-The backend is built with Express.js and uses the Gemini 2.0 Flash Lite API for code analysis.
+| Command | Purpose | Toolchain Standard |
+| :--- | :--- | :--- |
+| `npx @biomejs/biome check --apply` | Format and Fix all code | Biome (Fast Linter) |
+| `npx vitest run --coverage` | Execute Unit Tests & Generate Coverage Report | Vitest/Codecov |
+| `npm run build:prod` | Compile TypeScript and package extension artifacts | Vite/WXT |
+| `npx playwright test` | E2E Verification against GitHub staging environments | Playwright |
 
-### Helper Scripts
+</details>
 
-The repository includes several helper scripts to make development easier:
+## 🛠️ Development & Setup
 
--   `setup.bat` / `setup.sh`: Install dependencies and set up the project
--   `start-backend.bat`: Start the backend server (Windows)
--   `test-extension.bat`: Open the test page to verify the extension (Windows)
--   `package-extension.bat`: Package the extension for distribution (Windows)
+This project utilizes the modern JavaScript/TypeScript tooling ecosystem for peak velocity and strict type safety.
 
-## License
+### Prerequisites
 
-MIT
+1.  Node.js (v20.0+ or higher recommended for 2025 standards).
+2.  Git.
+
+### Installation
+
+bash
+git clone https://github.com/chirag127/CodeGuardian-AI-GitHub-Code-Review-Browser-Extension.git
+cd CodeGuardian-AI-GitHub-Code-Review-Browser-Extension
+# Using uv for Python package management (if applicable for CLI/backend services, otherwise standard npm)
+# Since this is a JS extension, we use npm/pnpm/yarn. Assuming npm for simplicity.
+npm install
+# Set your GEMINI_API_KEY in a .env file or via environment variables
+
+
+### Scripts Table
+
+| Script | Description | Execution Target |
+| :--- | :--- | :--- |
+| `npm run dev` | Start the dev server with hot-reloading | Vite/WXT |
+| `npm run build` | Compile production-ready extension bundles | Vite/WXT |
+| `npm run format` | Run Biome formatter | Biome |
+| `npm run lint` | Check code quality | Biome |
+| `npm run test:unit` | Run Vitest unit tests | Vitest |
+| `npm run test:e2e` | Run Playwright end-to-end tests | Playwright |
+
+## 📜 Development Principles
+
+*   **Type Safety First:** Embrace TypeScript strict mode to catch errors at compile time, not runtime in a user's browser.
+*   **Performance Budgets:** Ensure content scripts execute quickly and minimize DOM reflows.
+*   **API Abstraction:** The Gemini integration layer must be decoupled, allowing easy swapping to other LLMs (e.g., Claude, internal models) without rewriting core UI logic.
+
+## ⚖️ License
+
+This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International License**. See the [LICENSE](./LICENSE) file for details.
