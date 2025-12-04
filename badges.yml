@@ -1,33 +1,67 @@
-build_status:
-  - provider: github_actions
-    workflow_name: CI
-    image: github_actions.svg
-    commit: main
-    url: "https://github.com/chirag127/CodeGuard-AI-Powered-GitHub-Code-Reviewer-Browser-Extension/actions/workflows/ci.yml"
+# badges.yml: Central configuration for repository badges.
+# Style: flat-square is the mandated project standard.
 
-code_coverage:
-  - provider: codecov
-    image: codecov.svg
-    branch: main
-    url: "https://codecov.io/gh/chirag127/CodeGuard-AI-Powered-GitHub-Code-Reviewer-Browser-Extension"
+badges:
+  # --- Project Status & Health ---
+  - name: "Build Status"
+    markdown: "[
+![Build Status](https://img.shields.io/github/actions/workflow/status/chirag127/CodeGuardian-AI-GitHub-Code-Review-Browser-Extension/ci.yml?branch=main&style=flat-square)
+](https://github.com/chirag127/CodeGuardian-AI-GitHub-Code-Review-Browser-Extension/actions/workflows/ci.yml)"
+    url: "https://img.shields.io/github/actions/workflow/status/chirag127/CodeGuardian-AI-GitHub-Code-Review-Browser-Extension/ci.yml?branch=main&style=flat-square"
 
-tech_stack:
-  - name: JavaScript
-    image: javascript.svg
-    url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript"
-  - name: GitHub Actions
-    image: githubactions.svg
-    url: "https://github.com/features/actions"
+  - name: "Code Coverage"
+    markdown: "[
+![Codecov](https://img.shields.io/codecov/c/github/chirag127/CodeGuardian-AI-GitHub-Code-Review-Browser-Extension?style=flat-square)
+](https://codecov.io/gh/chirag127/CodeGuardian-AI-GitHub-Code-Review-Browser-Extension)"
+    url: "https://img.shields.io/codecov/c/github/chirag127/CodeGuardian-AI-GitHub-Code-Review-Browser-Extension?style=flat-square"
 
-lint_format:
-  - name: Biome
-    image: biome.svg
-    url: "https://biomejs.dev/"
+  # --- Repository Information ---
+  - name: "GitHub Stars"
+    markdown: "[
+![GitHub Stars](https://img.shields.io/github/stars/chirag127/CodeGuardian-AI-GitHub-Code-Review-Browser-Extension?style=flat-square)
+](https://github.com/chirag127/CodeGuardian-AI-GitHub-Code-Review-Browser-Extension/stargazers)"
+    url: "https://img.shields.io/github/stars/chirag127/CodeGuardian-AI-GitHub-Code-Review-Browser-Extension?style=flat-square"
 
-license:
-  - image: license-cc-by-nc-4.0
-    url: "https://creativecommons.org/licenses/by-nc/4.0/"
+  - name: "License"
+    markdown: "[
+![License](https://img.shields.io/github/license/chirag127/CodeGuardian-AI-GitHub-Code-Review-Browser-Extension?style=flat-square)
+](https://github.com/chirag127/CodeGuardian-AI-GitHub-Code-Review-Browser-Extension/blob/main/LICENSE)"
+    url: "https://img.shields.io/github/license/chirag127/CodeGuardian-AI-GitHub-Code-Review-Browser-Extension?style=flat-square"
 
-stars:
-  - image: github_stars
-    url: "https://github.com/chirag127/CodeGuard-AI-Powered-GitHub-Code-Reviewer-Browser-Extension"
+  # --- Tech Stack & Tools ---
+  - name: "JavaScript"
+    markdown: "
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
+"
+    url: "https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black"
+
+  - name: "Node.js"
+    markdown: "
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)
+"
+    url: "https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white"
+
+  - name: "Gemini AI"
+    markdown: "
+![Gemini AI](https://img.shields.io/badge/Gemini_AI-8E77F3?style=flat-square&logo=google&logoColor=white)
+"
+    url: "https://img.shields.io/badge/Gemini_AI-8E77F3?style=flat-square&logo=google&logoColor=white"
+
+  - name: "Linter: Biome"
+    markdown: "
+![Linter](https://img.shields.io/badge/Linter-Biome-60A5FA?style=flat-square&logo=biome&logoColor=white)
+"
+    url: "https://img.shields.io/badge/Linter-Biome-60A5FA?style=flat-square&logo=biome&logoColor=white"
+
+  # --- Distribution & Platforms ---
+  - name: "Chrome Web Store"
+    markdown: "[
+![Chrome Web Store](https://img.shields.io/chrome-web-store/v/YOUR_EXTENSION_ID_HERE?style=flat-square)
+](https://chrome.google.com/webstore/detail/YOUR_EXTENSION_ID_HERE)"
+    url: "https://img.shields.io/chrome-web-store/v/YOUR_EXTENSION_ID_HERE?style=flat-square"
+
+  - name: "Firefox Add-on"
+    markdown: "[
+![Firefox Add-on](https://img.shields.io/amo/v/your-addon-name-here?style=flat-square)
+](https://addons.mozilla.org/en-US/firefox/addon/your-addon-name-here/)"
+    url: "https://img.shields.io/amo/v/your-addon-name-here?style=flat-square"
