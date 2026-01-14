@@ -1,0 +1,88 @@
+/* Glassmorphism & Modern UI */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #e0eafc, #cfdef3);
+  color: #333;
+  line-height: 1.6;
+}
+
+header.hero {
+  padding: 4rem 2rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  margin: 2rem;
+}
+
+header.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+header.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+a.cta {
+  display: inline-block;
+  margin: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  background: rgba(255, 255, 255, 0.6);
+  color: #000;
+  text-decoration: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.2s, background 0.2s;
+}
+
+a.cta:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+section {
+  margin: 2rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+}
+
+section h2 {
+  margin-top: 0;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul li::before {
+  content: '✔️';
+  margin-right: 0.5rem;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  font-size: 0.9rem;
+}
+
+footer a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.ai-review-comment {
+  margin-top: 4px;
+  padding: 8px;
+  background: rgba(255,255,255,0.9);
+  border-left: 4px solid #4CAF50;
+  font-size: 0.9rem;
+  border-radius: 4px;
+}

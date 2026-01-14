@@ -1,0 +1,103 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact – AI Code Reviewer for GitHub</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Glassmorphism custom utilities -->
+  <style>
+    @layer utilities {
+      .glass {
+        @apply bg-white/30 backdrop-blur-xl rounded-xl border border-white/20 shadow-lg;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-gray-100 font-sans flex flex-col">
+
+  <!-- Header -->
+  <header class="py-6">
+    <div class="container mx-auto px-4 flex items-center justify-between">
+      <h1 class="text-3xl font-bold text-white">AI Code Reviewer</h1>
+      <nav class="space-x-4">
+        <a href="index.html" class="hover:underline">Home</a>
+        <a href="about.html" class="hover:underline">About</a>
+        <a href="contact.html" class="font-semibold underline">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow container mx-auto px-4 py-12">
+    <section class="max-w-2xl mx-auto glass p-8">
+      <h2 class="text-2xl font-semibold mb-6 text-gray-800">Get in Touch</h2>
+
+      <div class="grid gap-6">
+        <!-- Personal Card -->
+        <div class="flex items-center space-x-4">
+          <img src="https://avatars.githubusercontent.com/u/127?size=96" alt="Chirag Singhal"
+               class="w-24 h-24 rounded-full ring-2 ring-white/30">
+          <div>
+            <p class="text-xl font-medium text-gray-800">Chirag Singhal</p>
+            <p class="text-sm text-gray-600">Software Engineer • Backend &amp; GenAI Specialist</p>
+            <p class="text-sm text-gray-600">Bhubaneswar, Odisha, India</p>
+          </div>
+        </div>
+
+        <!-- Contact Details -->
+        <div class="space-y-2">
+          <p class="flex items-center text-gray-800">
+            <svg class="w-5 h-5 mr-2 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M2 4a2 2 0 012-2h16a2 2 0 012 2v16a2 2 0 01-2 2H4a2 2 0 01-2-2V4z"/>
+              <path d="M22 6l-10 7L2 6" stroke="#fff" stroke-width="2" fill="none"/>
+            </svg>
+            <a href="mailto:chiragsinghal127@gmail.com"
+               class="hover:underline text-blue-600">chiragsinghal127@gmail.com</a>
+          </p>
+
+          <p class="flex items-center text-gray-800">
+            <svg class="w-5 h-5 mr-2 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 00-3.16 19.48c.5.09.68-.22.68-.48v-1.71c-2.77.6-3.35-1.34-3.35-1.34-.45-1.14-1.11-1.45-1.11-1.45-.9-.62.07-.61.07-.61 1 .07 1.53 1.04 1.53 1.04.88 1.5 2.31 1.07 2.87.82.09-.64.35-1.07.63-1.32-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.56 9.56 0 015 0c1.9-1.29 2.74-1.02 2.74-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.6 1.03 2.69 0 3.84-2.34 4.68-4.57 4.93.36.31.68.93.68 1.88v2.8c0 .27.18.58.69.48A10 10 0 0012 2z"/>
+            </svg>
+            <a href="https://github.com/chirag127"
+               target="_blank"
+               class="hover:underline text-blue-600">github.com/chirag127</a>
+          </p>
+
+          <p class="flex items-center text-gray-800">
+            <svg class="w-5 h-5 mr-2 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.3c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 10.3h-3v-4.5c0-1.074-.021-2.456-1.5-2.456-1.5 0-1.732 1.172-1.732 2.382v4.574h-3v-9h2.881v1.231h.041c.401-.761 1.379-1.562 2.839-1.562 3.036 0 3.6 2 3.6 4.6v5.731z"/>
+            </svg>
+            <a href="https://linkedin.com/in/chirag-singhal1"
+               target="_blank"
+               class="hover:underline text-blue-600">linkedin.com/in/chirag-singhal1</a>
+          </p>
+
+          <p class="flex items-center text-gray-800">
+            <svg class="w-5 h-5 mr-2 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0c-6.627 0-12 5.373-12 12 0 5.302 3.438 9.8 8.205 11.385.6.111.82-.261.82-.58 0-.287-.011-1.244-.017-2.262-3.338.726-4.042-1.608-4.042-1.608-.546-1.389-1.333-1.759-1.333-1.759-1.089-.744.083-.729.083-.729 1.205.085 1.84 1.237 1.84 1.237 1.07 1.835 2.809 1.305 3.495.998.108-.775.418-1.305.762-1.605-2.665-.304-5.466-1.333-5.466-5.933 0-1.31.469-2.381 1.236-3.221-.124-.303-.536-1.523.117-3.176 0 0 1.008-.322 3.301 1.23a11.51 11.51 0 013.003-.404c1.018.005 2.045.138 3.003.404 2.291-1.552 3.297-1.23 3.297-1.23.655 1.653.243 2.873.12 3.176.77.84 1.235 1.911 1.235 3.221 0 4.61-2.804 5.625-5.476 5.921.43.371.814 1.102.814 2.222 0 1.605-.015 2.898-.015 3.291 0 .322.216.697.825.579C20.565 21.796 24 17.301 24 12c0-6.627-5.373-12-12-12z"/>
+            </svg>
+            <a href="https://buymeacoffee.com/WhyIsWhen"
+               target="_blank"
+               class="hover:underline text-blue-600">Buy Me a Coffee</a>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-6 bg-gray-900/80 text-center text-gray-400">
+    <p class="text-sm">
+      © 2026 Chirag Singhal | Designed by Chirag Singhal
+    </p>
+  </footer>
+
+</body>
+</html>
+```
